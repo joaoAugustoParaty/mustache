@@ -43,9 +43,26 @@ router.get('/sobre', (_req: Request, _res: Response)=>{
 router.get('/nome', (_req: Request, _res: Response) => {
     
     let nome: string = _req.query.nome as string;
+    let idade: string = _req.query.idade as string;
  _res.render('pages/nome',{
-    nome
+    nome,
+    idade
  });
 });
 
+router.get('/idade', (_req: Request, _res: Response) => {
+    let mostrarIdade: boolean = false;
+    let idade: number = 0;
+
+    if(_req.query.ano){
+    let anoNascimento: number = parseInt(_req.query.ano as string);
+    let anoAtual: number = new Date().getFullYear();
+    idade = anoAtual - anoNascimento;
+    mostrarIdade = true;
+    }
+_res.render('pages/idade', {
+    idade,
+    mostrarIdade
+})
+});
 export default router;
